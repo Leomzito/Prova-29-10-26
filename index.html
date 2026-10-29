@@ -1,6 +1,17 @@
 <?php
 
-    
+    abstract class modelo {
+        public $tipo;
+        public $energiaInicial;
+        public $potencia;
+        private $funcao;
+    }
+
+    class Explorador extends $tipo{}
+
+    class Engenheiro extends $tipo {}
+
+    class Defensor extends $tipo {}
 
 ?>
 <!DOCTYPE html>
@@ -13,6 +24,10 @@
 <body>
     <header>
         <h1>PROVA</h1>
+        <form type="" id="" name="" required>Nome do Robô</form>
+        <form type="" id="" name="" required>Modelo</form>
+        <form type="" id="" name="" required>Nome do operador</form>
+        <button type="submit">Cadastrar </button>
     </header>
 </body>
 </html>
