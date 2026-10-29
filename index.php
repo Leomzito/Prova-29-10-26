@@ -1,10 +1,14 @@
 <?php
 
-    abstract class modelo {
-        public $tipo;
+        if(!isset($_SESSION['total_recargas'])) {
+            $_SESSION['total_recargas'] = 0;
+        }
+
+    abstract class robo {
+        public $nome;
         public $energiaInicial;
         public $potencia;
-        private $funcao;
+        public $modelo;
     }
 
     function __contruct($nome, $modelo) {
@@ -24,6 +28,23 @@
         new Personagem Defensor ("03", 150, 30, $funcao);
     }
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && 
+    isset($_POST['cadastrar'])) {
+        $nome = trim($_POST['nome'] ?? '');
+        $modelo = trim($_POST['modelo'] ?? '');
+        $operador = trim($_POST['operador'] ?? '');
+
+        if (empty($nome) || empty($modelo) || empty ($operador)) {
+            $mensagem = "Erro: Todos os campos são obrigatorios";
+        } else {
+            $_SESSION['operador'] = $operador;
+        }
+
+        $novorobo = new Robo ($nome, $modelo, $operador);
+        $mensagem = "Sucesso: Robo cadastrado com sucesso";
+
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,31 +57,31 @@
     <header>
         <h1>CENTRAL DE ROBÔS</h1>
     </header>
-    <h1>
-        <form method="$_POST" >
-            <div>
-                <label>Nome do Robô</label>
-            <form type="text" id="nome" name="nome" required>Nome do Robô</form>
-            </div>
-            <div>
-                <label>Modelo do Robô</label>
-                <input type="text" name="nome" required>
-                <select name="modelo" required>
-                    <option value="">Selecione o modelo</option>
-                    <option value="Explorador">Explorador (Energia: 100 | Potência: 20)</option>
-                    <option value="Engenheiro">Engenheiro (Energia: 120 | Potência: 15)</option>
-                    <option value="Defensor">Defensor (Energia: 150 | Potência: 30)</option>
-                </select>
-                
-            </div>
-            <div>
-                <label>Nome do Operador</label>
-                <form type="text" id="operador" name="operador" required>Nome do operador</form>
-            </div>
+    
+    <form method="$_POST" >
+        <div>
+            <label>Nome do Robô</label>
+        <form type="text" id="nome" name="nome" required>Nome do Robô</form>
+        </div>
+        <div>
+            <label>Modelo do Robô</label>
+            <input type="text" name="nome" required>
+            <select name="modelo" required>
+                <option value="">Selecione o modelo</option>
+                <option value="Explorador">Explorador (Energia: 100 | Potência: 20)</option>
+                <option value="Engenheiro">Engenheiro (Energia: 120 | Potência: 15)</option>
+                <option value="Defensor">Defensor (Energia: 150 | Potência: 30)</option>
+            </select>
             
-            <button type="submit">Cadastrar</button>
-        </form>
-    </h1>
+        </div>
+        <div>
+            <label>Nome do Operador</label>
+            <form type="text" id="operador" name="operador" required>Nome do operador</form>
+        </div>
+        
+        <button type="submit">Cadastrar</button>
+    </form>
+
 
 </body>
 </html>
